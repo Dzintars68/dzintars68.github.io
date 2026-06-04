@@ -5,7 +5,7 @@ author: Dzintars 68
 baseurl: ""
 url: "https://dzintars68.github.io"
 
-# Jekyll configuration
+# Jekyll konfigurācija
 markdown: kramdown
 theme: minima
 plugins:
@@ -13,7 +13,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# Build settings
+# Build iestatījumi
 exclude:
   - .gitignore
   - Gemfile
@@ -21,7 +21,7 @@ exclude:
   - node_modules/
   - vendor/
 
-# Navigation configuration
+# Navigācijas konfigurācija
 navigation:
   - title: Sākums
     url: /
@@ -45,7 +45,7 @@ navigation:
     url: /biedriba/
     key: biedriba
 
-# Defaults for collections
+# Noklusējumi kolekcijām
 defaults:
   - scope:
       path: ""
@@ -53,15 +53,15 @@ defaults:
     values:
       layout: page
   - scope:
-      path: "_posts"
+      path: "_pazinjojumi"
     values:
-      layout: post
+      layout: page
 
-# Collections
+# Kolekcijas
 collections:
   pazinjojumi:
     output: true
     permalink: /:collection/:name/
-  dokumenti:
-    output: true
-    permalink: /:collection/:name/
+
+# Laika zona
+timezone: Europe/Riga
