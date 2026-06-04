@@ -1,0 +1,67 @@
+title: Dzīvokļu īpašnieku biedrība "Dzintars 68"
+description: Dzintars 68 dzīvokļu īpašnieku biedrības oficiālā dokumentācija un informācija
+email: 
+author: Dzintars 68
+baseurl: ""
+url: "https://dzintars68.github.io"
+
+# Jekyll configuration
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Build settings
+exclude:
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# Navigation configuration
+navigation:
+  - title: Sākums
+    url: /
+    key: home
+  - title: Informācija
+    url: /informacija/
+    key: informacija
+  - title: Paziņojumi
+    url: /pazinjojumi/
+    key: pazinjojumi
+  - title: Dokumenti
+    url: /dokumenti/
+    key: dokumenti
+  - title: Lēmumi
+    url: /lemumi/
+    key: lemumi
+  - title: Statūti
+    url: /statuti/
+    key: statuti
+  - title: Biedrība
+    url: /biedriba/
+    key: biedriba
+
+# Defaults for collections
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+
+# Collections
+collections:
+  pazinjojumi:
+    output: true
+    permalink: /:collection/:name/
+  dokumenti:
+    output: true
+    permalink: /:collection/:name/
