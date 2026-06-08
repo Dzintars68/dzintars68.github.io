@@ -1,0 +1,13 @@
+<aside class="sidebar">
+  <nav class="sidebar-nav" aria-label="Sāņu navigācija">
+    <ul>
+      {% for nav_item in site.navigation %}
+        <li>
+          <a href="{{ nav_item.url | relative_url }}" {% if page.url == nav_item.url %}class="active"{% endif %}>
+            {{ nav_item.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</aside>
