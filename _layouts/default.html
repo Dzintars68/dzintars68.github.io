@@ -11,9 +11,13 @@
   </head>
   <body>
     <div class="container">
-      {% include sidebar.html %}
+      {% unless page.layout == 'home' %}
+        {% include sidebar.html %}
+      {% endunless %}
       <main class="main-content">
-        {% include header.html %}
+        {% unless page.layout == 'home' %}
+          {% include header.html %}
+        {% endunless %}
         {{ content }}
         {% include footer.html %}
       </main>
