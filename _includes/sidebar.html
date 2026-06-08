@@ -1,13 +1,29 @@
-<aside class="sidebar">
-  <nav class="sidebar-nav" aria-label="Sāņu navigācija">
-    <ul>
+<aside class="sidebar" role="navigation" aria-label="Sāņu navigācija">
+  <div class="sidebar-header">
+    <a class="logo" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
       {% for nav_item in site.navigation %}
-        <li>
-          <a href="{{ nav_item.url | relative_url }}" {% if page.url == nav_item.url %}class="active"{% endif %}>
-            {{ nav_item.title }}
-          </a>
+        <li class="nav-item {% if page.url == nav_item.url %}active{% endif %}">
+          <a class="nav-link" href="{{ nav_item.url | relative_url }}">{{ nav_item.title }}</a>
+          {% comment %} list subsection pages under the active top-level item {% endcomment %}
+          {% if page.url contains nav_item.url and page.url != nav_item.url %}
+            <ul class="sub-list">
+              {% for p in site.pages %}
+                {% if p.url contains nav_item.url and p.url != nav_item.url %}
+                  <li class="sub-item {% if page.url == p.url %}active{% endif %}">
+                    <a class="sub-link" href="{{ p.url | relative_url }}">{{ p.title | default: p.url | replace: nav_item.url, '' | replace: '/', ' ' | capitalize }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
   </nav>
+  <div class="sidebar-footer">
+    <p class="sidebar-info">{{ site.description }}</p>
+  </div>
 </aside>

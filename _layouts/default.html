@@ -14,10 +14,8 @@
       {% unless page.layout == 'home' %}
         {% include sidebar.html %}
       {% endunless %}
-      <main class="main-content">
-        {% unless page.layout == 'home' %}
-          {% include header.html %}
-        {% endunless %}
+      <main class="main-content {% unless page.layout == 'home' %}with-sidebar{% endunless %}">
+        {% include header.html %}
         {{ content }}
         {% include footer.html %}
       </main>
