@@ -1,0 +1,23 @@
+<header class="header">
+  <div class="header-content">
+    <div class="logo">
+      <h1>
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      </h1>
+      {% if site.description %}
+        <p class="tagline">{{ site.description }}</p>
+      {% endif %}
+    </div>
+    <nav class="header-nav" aria-label="Galvenā navigācija">
+      <ul>
+        {% for nav_item in site.navigation %}
+          <li>
+            <a href="{{ nav_item.url | relative_url }}" {% if page.url == nav_item.url %}class="active"{% endif %}>
+              {{ nav_item.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>
