@@ -1,0 +1,28 @@
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>{{ site.title }}</h3>
+      <p>{{ site.description }}</p>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Saitēs</h4>
+      <ul>
+        {% for nav_item in site.navigation %}
+          <li><a href="{{ nav_item.url | relative_url }}">{{ nav_item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Kontakti</h4>
+      {% if site.email %}
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; {% now 'utc' | date: '%Y' %} {{ site.title }}. Visas tiesības paturētas.</p>
+  </div>
+</footer>
