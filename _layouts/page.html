@@ -2,57 +2,45 @@
 layout: default
 ---
 
-<article class="page-content">
+<article class="page-article">
   <header class="page-header">
-    {% assign has_breadcrumbs = false %}
-    {% if page.breadcrumbs %}
-      {% assign has_breadcrumbs = true %}
-    {% endif %}
-
-    {% if has_breadcrumbs %}
-      <nav class="breadcrumbs" aria-label="Navigācija">
-        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        {% for crumb in page.breadcrumbs %}
-          <span class="separator">/</span>
-          {% if crumb.url %}
-            <a href="{{ crumb.url | relative_url }}">{{ crumb.title }}</a>
-          {% else %}
-            <span>{{ crumb.title }}</span>
-          {% endif %}
-        {% endfor %}
-      </nav>
-    {% else %}
-      {% comment %} Auto-generate breadcrumbs from URL if not provided {% endcomment %}
-      {% assign segments = page.url | split: '/' %}
-      {% assign crumb_url = '' %}
-      {% capture breadcrumb_items %}
-        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      {% endcapture %}
-      {% for segment in segments %}
-        {% if segment != '' %}
-          {% assign crumb_url = crumb_url | append: '/' | append: segment %}
-          {% capture name %}{{ segment | replace: '-', ' ' | capitalize }}{% endcapture %}
-          {% capture breadcrumb_items %}{{ breadcrumb_items }}<span class="separator">/</span><a href="{{ crumb_url | relative_url }}">{{ name }}</a>{% endcapture %}
-        {% endif %}
-      {% endfor %}
-      {% if breadcrumb_items != '' %}
-        <nav class="breadcrumbs" aria-label="Navigācija">{{ breadcrumb_items | strip }}</nav>
-      {% endif %}
-    {% endif %}
-
-    <h1>{{ page.title }}</h1>
-    
-    {% if page.date %}
-      <div class="page-meta">
-        <span class="meta-item">📅 {{ page.date | date: "%d.%m.%Y" }}</span>
-        {% if page.last_modified_at %}
-          <span class="meta-item">✏️ Pēdējais labojums: {{ page.last_modified_at | date: "%d.%m.%Y %H:%M" }}</span>
-        {% endif %}
-      </div>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.description %}
+      <p class="page-description">{{ page.description }}</p>
     {% endif %}
   </header>
 
-  <div class="page-body">
+  <div class="page-content">
     {{ content }}
   </div>
 </article>
+
+<style>
+  .page-header {
+    margin-bottom: var(--space-3xl);
+    border-bottom: 2px solid var(--color-border-light);
+    padding-bottom: var(--space-xl);
+  }
+
+  .page-title {
+    margin-top: 0;
+  }
+
+  .page-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin: var(--space-md) 0 0 0;
+  }
+
+  .page-content {
+    line-height: var(--line-height-relaxed);
+  }
+
+  .page-content h2 {
+    margin-top: var(--space-3xl);
+  }
+
+  .page-content h3 {
+    margin-top: var(--space-2xl);
+  }
+</style>
