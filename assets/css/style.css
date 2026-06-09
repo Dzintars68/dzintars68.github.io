@@ -1,13 +1,76 @@
-.header-banner { 
-  padding: 0.7rem 0;
-  background: linear-gradient(180deg, rgba(255,122,0,0.06), rgba(255,122,0,0.02));
-  border-bottom: 1px solid rgba(0,0,0,0.02);
-}
-.header-inner { max-width: var(--container-max); margin:0 auto; padding: 0 1rem; display:flex; align-items:center; gap:1rem; }
-.brand-title { color:var(--muted-800); font-weight:600; font-size:1.05rem; text-decoration:none; }
-.brand-tagline { margin:0; color:var(--muted-600); font-size:0.92rem; }
+/* Minimalistic redesign — amber (dzintara oranžs) focused, increased whitespace, light typography
+   - Goals: readable, consistent hierarchy, subtle accents, reduced visual clutter
+   - Keep existing layout classes but simplify visual treatments
+*/
+:root {
+  /* Neutral background */
+  --bg-base: #fbfcfb; /* very light near-white */
+  --surface: #ffffff;
 
-/* Sidebar nav button styles */
+  /* Dzintara oranžs (primary amber/orange) and tonal variations */
+  --amber-500: #FF7A00; /* primary */
+  --amber-400: #ff8f33; /* hover/soft */
+  --amber-200: #ffd9b8; /* soft highlight */
+  --amber-50:  rgba(255,122,0,0.06); /* subtle glow */
+
+  /* Muted neutrals */
+  --muted-800: #263238; /* primary text */
+  --muted-600: #4a5563; /* secondary text */
+  --muted-400: #8b9498; /* captions */
+  --muted-300: #cfd8dc; /* dividers */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --container-max: 1100px;
+  --sidebar-width: 260px;
+  --transition: 220ms cubic-bezier(.2,.8,.2,1);
+  --focus-ring: 3px solid rgba(255,122,0,0.18);
+}
+
+/* Base reset and typography */
+* { box-sizing: border-box; }
+html,body{ height:100%; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background-color: var(--bg-base);
+  color: var(--muted-800);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.7;
+  font-weight: 300; /* light weight for primary body */
+  font-size: 16px;
+}
+
+/* Utility containers */
+.container { display:flex; min-height:100vh; }
+.page-content { max-width: var(--container-max); margin: 0 auto; padding: 0 1rem; }
+
+/* Sidebar: flat, minimal, accessible */
+.sidebar {
+  width: var(--sidebar-width);
+  background: transparent; /* remove heavy colored blocks */
+  color: var(--muted-800);
+  padding: 2.25rem 1.25rem;
+  position: fixed;
+  top: 0; left: 0; height: 100vh; overflow:auto;
+  border-right: 1px solid var(--muted-300);
+  backdrop-filter: blur(4px);
+}
+
+.sidebar .logo {
+  color: var(--muted-800);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.sidebar-header { margin-bottom: 1.5rem; }
+.sidebar-nav { margin-bottom: 1.75rem; }
+.nav-list { list-style:none; padding:0; }
+.nav-item { margin-bottom: 0.375rem; }
+
+/* Nav button base (overridden later for hover/active) */
 .nav-button {
   display: block;
   padding: 0.75rem 0.9rem;
@@ -19,6 +82,100 @@
   transition: background var(--transition), color var(--transition), transform var(--transition);
   border: 1px solid transparent;
 }
+
+.nav-button-label { display:inline-block; }
+
+/* Sidebar footer and info */
+.sidebar-footer{ margin-top:2rem; padding-top:1rem; border-top:1px dashed var(--muted-300); color:var(--muted-600); font-size:0.9rem; }
+
+/* Main content area: increased whitespace */
+.main-content{ flex:1; margin-left:0; padding: 3.25rem 2rem; transition: margin var(--transition); background: transparent; }
+.main-content.with-sidebar{ margin-left: var(--sidebar-width); }
+
+.page-header{ margin-bottom: 2.25rem; padding-bottom: 1rem; }
+.breadcrumbs{ display:flex; align-items:center; gap:0.5rem; color:var(--muted-600); font-size:0.92rem; }
+.breadcrumbs a{ color: var(--muted-600); text-decoration:none; }
+.breadcrumbs a:hover{ color: var(--amber-500); text-decoration:underline; }
+
+.page-header h1{ font-size:2.1rem; margin:0 0 8px 0; font-weight:600; color:var(--muted-800); }
+.page-meta{ display:flex; gap:1rem; color:var(--muted-600); font-size:0.95rem; }
+.page-body{ font-size: 1rem; color:var(--muted-800); }
+
+/* Home hero simplified: soft amber accent */
+.home-hero{
+  text-align:center;
+  padding: 2rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255,122,0,0.06), transparent 60%);
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0,0,0,0.02);
+}
+.home-hero h1{ font-size:2.4rem; font-weight:600; color:var(--muted-800); margin-bottom:0.5rem; }
+.home-subtitle{ font-size:1.05rem; color:var(--muted-600); margin:0; }
+
+.home-intro{ text-align:center; margin-bottom:2rem; font-size:1.02rem; color:var(--muted-800); }
+
+/* Navigation cards — flat, spacious, amber accents */
+.nav-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem; }
+.nav-card{
+  display:flex; flex-direction:column; align-items:flex-start; padding:1.5rem; background:var(--surface);
+  border-radius: var(--radius-sm); border:1px solid var(--muted-300); transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.nav-card:hover{ transform: translateY(-6px); border-color: rgba(255,122,0,0.12); box-shadow: 0 8px 20px rgba(255,122,0,0.06); }
+.nav-card-icon{ width:56px; height:56px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; margin-bottom:0.85rem; border-radius:10px; background: linear-gradient(180deg, rgba(255,122,0,0.06), rgba(255,122,0,0.02)); color:var(--amber-500); }
+.nav-card h3{ font-size:1.15rem; margin:0 0 0.4rem 0; font-weight:600; color:var(--muted-800); }
+.nav-card p{ margin:0; color:var(--muted-600); font-size:0.96rem; }
+
+/* Buttons: flat, amber primary */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.55rem 0.9rem; border-radius:10px; font-weight:600; font-size:0.95rem; cursor:pointer; text-decoration:none; border:none; }
+.btn-primary{ background: var(--amber-500); color: white; box-shadow:none; }
+.btn-primary:hover{ background: var(--amber-400); }
+.btn-ghost{ background: transparent; color: var(--amber-500); border: 1px solid rgba(255,122,0,0.08); }
+
+/* Form controls & focus */
+input, textarea, select { border:1px solid var(--muted-300); background: var(--surface); color: var(--muted-800); padding: 0.6rem 0.75rem; border-radius:8px; font-weight:300; }
+input:focus, textarea:focus, select:focus { outline: none; box-shadow: var(--focus-ring); border-color: var(--amber-400); }
+
+/* Links: subtle amber underlines on hover */
+a { color: var(--amber-500); text-decoration: none; font-weight:500; }
+a:hover { text-decoration: underline; color: var(--amber-400); }
+
+/* Tables, lists, misc content */
+table{ width:100%; border-collapse:collapse; margin:1rem 0; }
+thead th{ text-align:left; font-weight:600; padding:0.6rem; color:var(--muted-800); border-bottom:1px solid var(--muted-300); }
+tbody td{ padding:0.6rem; border-bottom:1px solid rgba(0,0,0,0.03); color:var(--muted-600); }
+
+/* Reduce visual noise: minimal shadows and borders */
+.card { background: var(--surface); border:1px solid var(--muted-300); border-radius: 10px; padding:1rem; }
+.small { font-size:0.9rem; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px){
+  .sidebar{ transform: translateX(-100%); transition: var(--transition); z-index:1000; background:transparent; }
+  .sidebar.active{ transform: translateX(0); }
+  .main-content{ padding:2rem 1.25rem; }
+}
+
+@media (max-width: 768px){
+  .nav-grid{ grid-template-columns: 1fr; }
+  .page-header h1{ font-size:1.6rem; }
+  .home-hero{ padding:1.25rem; margin-bottom:1rem; }
+  .sidebar{ position:relative; width:100%; height:auto; border-right:none; }
+  .main-content.with-sidebar{ margin-left:0; }
+}
+
+@media print { .sidebar, .sidebar-toggle { display:none; } .main-content { margin-left:0; padding:0; } }
+
+/* Header banner and nav-button overrides (amber accents, hover/active/focus) */
+.header-banner { 
+  padding: 0.7rem 0;
+  background: linear-gradient(180deg, rgba(255,122,0,0.06), rgba(255,122,0,0.02));
+  border-bottom: 1px solid rgba(0,0,0,0.02);
+}
+.header-inner { max-width: var(--container-max); margin:0 auto; padding: 0 1rem; display:flex; align-items:center; gap:1rem; }
+.brand-title { color:var(--muted-800); font-weight:600; font-size:1.05rem; text-decoration:none; }
+.brand-tagline { margin:0; color:var(--muted-600); font-size:0.92rem; }
+
 .nav-button:hover,
 .nav-button:focus {
   background: var(--amber-50); /* subtle fill */
@@ -33,5 +190,4 @@
   color: var(--amber-500);
   border-left: 3px solid var(--amber-500);
 }
-.nav-button-label { display:inline-block; }
 .nav-button:focus { box-shadow: var(--focus-ring); }
