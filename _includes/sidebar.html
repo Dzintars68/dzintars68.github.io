@@ -5,21 +5,13 @@
   <nav class="sidebar-nav">
     <ul class="nav-list">
       {% for nav_item in site.navigation %}
-        <li class="nav-item {% if page.url == nav_item.url %}active{% endif %}">
-          <a class="nav-link" href="{{ nav_item.url | relative_url }}">{{ nav_item.title }}</a>
-          {% comment %} list subsection pages under the active top-level item {% endcomment %}
-          {% if page.url contains nav_item.url and page.url != nav_item.url %}
-            <ul class="sub-list">
-              {% for p in site.pages %}
-                {% if p.url contains nav_item.url and p.url != nav_item.url %}
-                  <li class="sub-item {% if page.url == p.url %}active{% endif %}">
-                    <a class="sub-link" href="{{ p.url | relative_url }}">{{ p.title | default: p.url | replace: nav_item.url, '' | replace: '/', ' ' | capitalize }}</a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
+        {% if nav_item.key != 'home' %}
+          <li class="nav-item {% if page.url == nav_item.url %}active{% endif %}">
+            <a class="nav-button" href="{{ nav_item.url | relative_url }}" role="button" {% if page.url == nav_item.url %}aria-current="page"{% endif %}>
+              <span class="nav-button-label">{{ nav_item.title }}</span>
+            </a>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </nav>
